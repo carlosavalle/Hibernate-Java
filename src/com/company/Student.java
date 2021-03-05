@@ -1,7 +1,7 @@
 package com.company;
 
 import javax.persistence.*;
-// this is the students class that will be use with hibernate to interact with the dab.
+// this is the students class that will be use with hibernate to interact with the db.
 // set the table name
 @Entity
 @Table(name = "students")
