@@ -18,7 +18,7 @@ public class Main {
             persistence.deleteStudent(2);
 
             //list all students in the db
-            System.out.println("List of Students in the system");
+            System.out.println("List of Students in the Database");
             for (Student s : persistence.listStudents()){
                 System.out.println(s);
 
