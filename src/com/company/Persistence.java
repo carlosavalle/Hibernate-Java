@@ -59,12 +59,13 @@ public class Persistence {
       }
       }
 
-
+// will return a list of students from the DB
     public List<Student> listStudents(){
         Session session = factory.openSession();
         Transaction transaction = null;
         List<Student> students = null;
         try {
+            // will retrieve the student table data from the DB
             transaction = session.beginTransaction();
             students = session.createQuery("FROM Student ").list();
             transaction.commit();
@@ -78,7 +79,29 @@ public class Persistence {
         return students;
     }
 
+    // will delete a student from the DB by id
+    public void deleteStudent(Integer id){
+        Session session = factory.openSession();
+        Transaction transaction = null;
+        try {
+            // begin the transaction
+            transaction = session.beginTransaction();
+            // get the student by the ide
+            Student student = session.get(Student.class,id);
+            // checks of the student object contains the object and removes it if it exists.
+            if(student != null){
+                session.remove(student);
+                transaction.commit();
+            }
 
+
+        } catch (HibernateException e) {
+            if (transaction != null) transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
 
 
 }

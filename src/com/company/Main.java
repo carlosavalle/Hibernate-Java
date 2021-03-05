@@ -1,12 +1,9 @@
 package com.company;
 
 
-import java.lang.reflect.Executable;
-
 public class Main {
 
     public static void main(String[] args) {
-
 
 
         try {
@@ -17,6 +14,8 @@ public class Main {
             persistence.insertStudent("Adam","Avalle");
             persistence.insertStudent("Aaron","Avalle");
 
+            //delete the student with the id 2
+            persistence.deleteStudent(2);
 
             //list all students in the db
             System.out.println("List of Students in the system");
@@ -24,6 +23,7 @@ public class Main {
                 System.out.println(s);
 
             }
+
         }catch (Exception e){
             System.out.println(e);
 
