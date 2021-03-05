@@ -80,28 +80,37 @@ public class Persistence {
     }
 
     // will delete a student from the DB by id
-    public void deleteStudent(Integer id){
-        Session session = factory.openSession();
-        Transaction transaction = null;
-        try {
-            // begin the transaction
-            transaction = session.beginTransaction();
-            // get the student by the ide
-            Student student = session.get(Student.class,id);
-            // checks of the student object contains the object and removes it if it exists.
-            if(student != null){
-                session.remove(student);
-                transaction.commit();
+    public void deleteStudent(Integer id) throws Exception {
+        if(Validators.isValidateID(id)) {
+            Session session = factory.openSession();
+            Transaction transaction = null;
+            try {
+                // begin the transaction
+                transaction = session.beginTransaction();
+                // get the student by the ide
+                Student student = session.get(Student.class, id);
+                // checks of the student object contains the object and removes it if it exists.
+                if (student != null) {
+                    session.remove(student);
+                    transaction.commit();
+                }else {
+                    throw new Exception("The user does not exist");
+                }
+
+
+            } catch (HibernateException e) {
+                if (transaction != null) transaction.rollback();
+                e.printStackTrace();
+            } finally {
+                session.close();
             }
+        }
+        else{
+            throw new Exception("Invalid student id");
 
-
-        } catch (HibernateException e) {
-            if (transaction != null) transaction.rollback();
-            e.printStackTrace();
-        } finally {
-            session.close();
+            }
         }
     }
 
 
-}
+
